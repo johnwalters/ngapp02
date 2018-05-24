@@ -1,0 +1,34 @@
+To deploy to an azure web app with no .net:
+
+1) ng build --prod
+2) create a web.config in dist/ngapp02/
+  contents:
+
+<?xml version="1.0"?>
+
+<configuration>
+    <system.webServer>
+        <staticContent>
+            <mimeMap fileExtension=".json" mimeType="application/json" />
+            <mimeMap fileExtension=".woff" mimeType="application/x-font-woff" />
+            <mimeMap fileExtension=".woff2" mimeType="font/woff2" />
+        </staticContent>
+    </system.webServer>
+    <system.webServer>
+    <rewrite>
+        <rules>
+            <rule name="angular cli routes" stopProcessing="true">
+                <match url=".*" />
+                <conditions logicalGrouping="MatchAll">
+                    <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+                    <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
+                </conditions>
+                <action type="Rewrite" url="/" />
+            </rule>
+        </rules>
+    </rewrite>
+  </system.webServer>
+</configuration>
+
+3) delete contents of azure web app's /wwwroot folder (except hostingstart.html and web.config, if present)
+3) copy contents (via ftp) of dist/ngapp02/ to azure web app's /wwwroot folder.
