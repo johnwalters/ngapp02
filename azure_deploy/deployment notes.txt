@@ -32,4 +32,4 @@ To deploy to an azure web app with no .net:
 </configuration>
 
 3) delete contents of azure web app's /wwwroot folder (except hostingstart.html and web.config, if present)
-3) copy contents (via ftp) of dist/ngapp02/ to azure web app's /wwwroot folder. (the web.config file disappears from dist/<app> upon build, but it'll be up on server.)
+4) copy contents (via ftp) of dist/ngapp02/ to azure web app's /wwwroot folder. (the web.config file disappears from dist/<app> upon build, but it'll be up on server.)
